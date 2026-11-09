@@ -1,0 +1,38 @@
+﻿@model List<RaceDay.MVC.ViewModels.EventDto>
+@{
+    ViewData["Title"] = "Upcoming Events";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Upcoming Race Events</h1>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+
+    <div class="row">
+        @foreach (var ev in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@ev.EventName</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@ev.City - @ev.EventDate.ToShortDateString()</h6>
+                        <p class="card-text">@ev.Description</p>
+                        <span class="badge bg-info">@ev.EventType</span>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a asp-action="Details" asp-route-id="@ev.EventId" class="btn btn-outline-primary w-100">View Details & Enrol</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

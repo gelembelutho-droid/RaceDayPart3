@@ -1,0 +1,42 @@
+﻿@model List<RaceDay.MVC.ViewModels.ResultDto>
+@{
+    ViewData["Title"] = "My Results";
+}
+
+<div class="container mt-4">
+    <h2>My Race History</h2>
+
+    <table class="table table-bordered mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Event</th>
+                <th>Category</th>
+                <th>Finish Time</th>
+                <th>Overall Rank</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var res in Model)
+            {
+                <tr>
+                    <td>@res.EventName</td>
+                    <td>@res.RaceName</td>
+                    <td>@(res.FinishTime.HasValue? res.FinishTime.Value.ToString(@"hh\:mm\:ss") : "N/A")</td>
+                    <td>@(res.OverallRank?.ToString() ?? "N/A")</td>
+                    <td>
+                        @if (res.Status == "finished")
+                        {
+                            <span class="badge bg-success">Finished</span>
+                        }
+                        else
+                        {
+
+                            <span class="badge bg-warning text-dark">@res.Status</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
